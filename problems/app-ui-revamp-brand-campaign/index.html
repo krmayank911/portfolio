@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App UI Revamp – First Brand Campaign | Mayank – Android Lead</title>
+  <meta name="description" content="Lead Android Engineer with 8+ years of experience building scalable mobile applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio/css/style.css">
+  <link rel="stylesheet" href="/portfolio/css/prism-theme.css">
+</head>
+<body>
+  <header class="nav">
+  <div class="nav-inner container">
+    <a href="/portfolio/" class="nav-logo">
+      <span class="nav-logo-name">Mayank</span>
+      <span class="nav-logo-title">Android</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="/portfolio/" class="nav-link">About</a>
+      <a href="/portfolio/problems/" class="nav-link">Problems</a>
+      <a href="/portfolio/projects/" class="nav-link">Projects</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+    <article class="problem-detail">
+  <div class="container container-narrow">
+
+    <div class="detail-back">
+      <a href="/portfolio/problems/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Problems
+      </a>
+    </div>
+
+    <header class="detail-header">
+      <h1 class="detail-title">App UI Revamp – First Brand Campaign</h1>
+      <p class="detail-date">June 2022</p>
+      
+      <div class="tag-list">
+        <span class="tag">architecture</span><span class="tag">kotlin</span><span class="tag">mvvm</span><span class="tag">android</span><span class="tag">dependency injection</span>
+      </div>
+      
+    </header>
+
+    
+    <div class="metrics-box">
+      <p class="metrics-label">Key Outcomes</p>
+      <ul class="metrics-list">
+        <li>99.92% crash-free rate on launch</li><li>Phased rollout to 100% traffic within 1 week</li><li>Launched Zupee&#39;s first official brand campaign successfully</li>
+      </ul>
+    </div>
+    
+
+    <div class="problem-content article-content">
+      <h2>Situation</h2>
+<p>The app had grown organically without a unified architecture. All views were tightly coupled in a monolithic, activity-heavy codebase, making scalability and testability increasingly difficult. Inter-component communication relied on Handlers, which frequently dropped events during Activity and Fragment lifecycle transitions.</p>
+<p>The platform was preparing for its first major brand campaign — a full design overhaul across every screen. Because this revamp would touch every screen in the app, it was our last practical opportunity to simultaneously migrate toward a clean, maintainable architecture.</p>
+<h2>Task</h2>
+<p>Refactor all views according to the new Design Guide, fully widgetize the screens, and move the app toward a server-driven architecture — all while ensuring stability for a production rollout to millions of users.</p>
+<p>Initial estimates:</p>
+<ul>
+<li>Full app design revamp: <strong>6 weeks</strong></li>
+<li>Architectural migration to a stable foundation: <strong>+2 weeks</strong></li>
+</ul>
+<h2>Action</h2>
+<p>I led architectural and cross-team discussions to establish a scalable foundation before any screen work began.</p>
+<p>We aligned on standard layered principles:</p>
+<ul>
+<li><strong>Views</strong> as the presentation layer.</li>
+<li><strong>ViewModels</strong> for business logic.</li>
+<li><strong>Repositories</strong> for data orchestration.</li>
+<li><strong>Data Sources</strong> for Room and remote data management.</li>
+<li><strong>Game Service</strong> singleton class for all network request.</li>
+<li><strong>App Database</strong> singleton class for all data base queries.</li>
+</ul>
+<p>This structure became the development standard across the entire app.</p>
+<p>To replace Handlers (which caused dropped events on lifecycle transitions), we adopted a <strong>single-activity architecture</strong> with Fragments representing individual screens. I introduced:</p>
+<ul>
+<li>Reusable base classes for shared functionality across screens</li>
+<li><strong>Kotlin Channels</strong> for inter-component communication, observed through base classes</li>
+<li>Lifecycle-safe socket event routing</li>
+</ul>
+<p>I led discussions across both architectural and product domains, participating in multiple pod-level meetings to align product requirements with technical feasibility. I delegated feature-level tasks across teams to enable parallel execution.</p>
+<p>The overhaul exceeded the deadline by three days — a conscious trade-off discussed upfront, as the investment was expected to significantly reduce future development effort.</p>
+<h2>Result</h2>
+<p>Since this was a major brand campaign, we rolled out gradually over the course of a week while closely monitoring performance metrics. After validating initial rollout data for two days, we progressively scaled traffic to 100%.</p>
+<ul>
+<li>Achieved a <strong>99.92% crash-free rate</strong> throughout the rollout</li>
+<li>Successfully scaled to <strong>100% traffic</strong> with full platform stability</li>
+<li>This launch marked the platform's first official release under the <strong>Zupee brand</strong> (previously Ludo Supreme), making the architectural overhaul both a technical and business milestone</li>
+<li>The new architecture became the standard for all future feature development across the app</li>
+</ul>
+
+    </div>
+
+    
+    <div class="detail-tech">
+      <p class="detail-tech-label">Tech Used</p>
+      <div class="tag-list">
+        <span class="tag tag-tech">MVVM</span><span class="tag tag-tech">Repository Pattern</span><span class="tag tag-tech">Dependency Injection</span><span class="tag tag-tech">ViewModels</span><span class="tag tag-tech">Coroutines</span><span class="tag tag-tech">Flows</span><span class="tag tag-tech">Navigation</span><span class="tag tag-tech">Modules</span><span class="tag tag-tech">Widgetization</span><span class="tag tag-tech">Server-Driven Architecture</span><span class="tag tag-tech">Kotlin</span>
+      </div>
+    </div>
+    
+
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2025 Mayank. Built with Eleventy.</p>
+    <div class="footer-links">
+      <a href="https://github.com/krmayank911" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+      <a href="https://www.linkedin.com/in/mayank-874b43110/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+      <a href="mailto:krmayank911@gmail.com" class="footer-link">Email</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/portfolio/js/main.js"></script>
+</body>
+</html>

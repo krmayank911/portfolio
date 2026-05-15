@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reducing 3TTO by Removing Gameplay&#39;s Main Socket Dependency | Mayank – Android Lead</title>
+  <meta name="description" content="Lead Android Engineer with 8+ years of experience building scalable mobile applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio/css/style.css">
+  <link rel="stylesheet" href="/portfolio/css/prism-theme.css">
+</head>
+<body>
+  <header class="nav">
+  <div class="nav-inner container">
+    <a href="/portfolio/" class="nav-logo">
+      <span class="nav-logo-name">Mayank</span>
+      <span class="nav-logo-title">Android</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="/portfolio/" class="nav-link">About</a>
+      <a href="/portfolio/problems/" class="nav-link">Problems</a>
+      <a href="/portfolio/projects/" class="nav-link">Projects</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+    <article class="problem-detail">
+  <div class="container container-narrow">
+
+    <div class="detail-back">
+      <a href="/portfolio/problems/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Problems
+      </a>
+    </div>
+
+    <header class="detail-header">
+      <h1 class="detail-title">Reducing 3TTO by Removing Gameplay&#39;s Main Socket Dependency</h1>
+      <p class="detail-date">September 2024</p>
+      
+      <div class="tag-list">
+        <span class="tag">performance</span><span class="tag">websockets</span><span class="tag">android</span><span class="tag">debugging</span>
+      </div>
+      
+    </header>
+
+    
+    <div class="metrics-box">
+      <p class="metrics-label">Key Outcomes</p>
+      <ul class="metrics-list">
+        <li>Reduced existing 3TTO baseline from approximately 1.67% to approximately 1.34% among paid games after the clock sync fix</li><li>Improved app stability by removing dependence on the main socket, reducing failures caused by network fluctuations</li><li>Backend-configurable event timing for future flexibility</li>
+      </ul>
+    </div>
+    
+
+    <div class="problem-content article-content">
+      <h2>Situation</h2>
+<p>One of the main socket's major responsibilities was delivering tournament-related events to the client. Based on these events, the client navigated users to the Gameplay screen once a tournament started. The timing of these events was critical — any failure led to <strong>3TTO (Turn Time Out)</strong>, directly degrading user experience and reducing trust in the platform.</p>
+<p>A fallback mechanism already existed for missed events (caused by socket disconnections or high latency), but the primary path still depended on the main socket.</p>
+<h2>Task</h2>
+<p>Remove the gameplay screen's dependency on main socket events, replacing it with a client-side mechanism that was reliable, testable, and safe to roll out via A/B testing for quick rollback if needed.</p>
+<h2>Action</h2>
+<p><strong>Initial implementation:</strong></p>
+<p>Since tournament start times were already available on the client, I scheduled a job to simulate the main socket events using data stored in the Room database. An API call was also made just before game start to fetch tournament details and retrieve gameplay socket information. Simulating events (rather than restructuring the entire setup flow) kept the blast radius small.</p>
+<p>A backend-driven configuration was added to control the timing of simulated events, giving flexibility for future use cases.</p>
+<p>The implementation went smoothly, testing passed, and it was launched as an <strong>A/B test</strong>.</p>
+<p><strong>Unexpected regression:</strong></p>
+<p>The A/B experiment showed a slight <em>increase</em> in 3TTO — unexpected given the design. Identifying the root cause was now critical.</p>
+<p>The system already had strong logging and New Relic alerting. I collected device logs from affected users and reviewed them to find a pattern. After analyzing multiple log traces, the pattern emerged: <strong>several users' device clocks were not properly synced with server time</strong>. Event scheduling either failed entirely or fired at the wrong moment.</p>
+<p>Once the responsibility for initiating events moved to the client, accurate device-server time synchronization became essential — but the existing sync process sometimes failed or timed out silently.</p>
+<p><strong>Fix:</strong></p>
+<p>I added an incremental verification function that compared device time against the server timestamp present in every REST API response. If the difference crossed a defined threshold, device time was re-synced using the newer timestamp.</p>
+<h2>Result</h2>
+<p>After rolling out the clock sync fix:</p>
+<ul>
+<li>Reduced existing 3TTO baseline from approximately <strong>1.67%</strong> to approximately <strong>1.34%</strong> among paid games</li>
+<li><strong>Socket disconnections no longer directly cause 3TTO</strong> for affected users — the dependency on the main socket for gameplay navigation was fully removed</li>
+<li>The backend-configurable event timing made the solution reusable for future game types</li>
+</ul>
+
+    </div>
+
+    
+    <div class="detail-tech">
+      <p class="detail-tech-label">Tech Used</p>
+      <div class="tag-list">
+        <span class="tag tag-tech">WebSockets</span><span class="tag tag-tech">Coroutines</span><span class="tag tag-tech">Flows</span><span class="tag tag-tech">Room Database</span><span class="tag tag-tech">AlarmManager</span><span class="tag tag-tech">BroadcastReceiver</span>
+      </div>
+    </div>
+    
+
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2025 Mayank. Built with Eleventy.</p>
+    <div class="footer-links">
+      <a href="https://github.com/krmayank911" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+      <a href="https://www.linkedin.com/in/mayank-874b43110/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+      <a href="mailto:krmayank911@gmail.com" class="footer-link">Email</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/portfolio/js/main.js"></script>
+</body>
+</html>
