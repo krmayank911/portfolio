@@ -1,0 +1,102 @@
+{
+  "name": "Mayank",
+  "title": "Technical Lead – Android",
+  "summary": "Lead Android Engineer with 8+ years of experience building and scaling high-performance Android applications. Expertise in clean architecture, offline-first design, Kotlin-based development, and delivering scalable, resilient mobile experiences with a strong focus on code quality, performance, and user impact.",
+  "email": "krmayank911@gmail.com",
+  "phone": "+91 8471083566",
+  "location": "New Delhi, India",
+  "linkedin": "https://www.linkedin.com/in/mayank-874b43110/",
+  "github": "https://github.com/krmayank911",
+  "experience": [
+    {
+      "role": "Technical Lead",
+      "company": "Zupee",
+      "period": "Jul 2024 – Feb 2026",
+      "location": "Gurugram",
+      "description": "Zupee is a leading casual real money gaming company focused on fun and interactive gaming experiences.",
+      "bullets": [
+        "Led parallel Android initiatives, managing a dedicated team of 3 engineers and owning delivery of high-revenue game modules and core platform features end-to-end.",
+        "Served as the primary reviewer for all major pull requests due to deep app-wide context, helping maintain architectural consistency, code quality, and engineering standards across teams.",
+        "Collaborated with product, design, and backend teams to define implementation strategy, delivery sequencing, and rollout plans.",
+        "Reduced 3TTO baseline from ~1.67% to ~1.34% among paid games by removing gameplay startup dependency on main socket events."
+      ]
+    },
+    {
+      "role": "Senior Software Engineer",
+      "company": "Zupee",
+      "period": "Jul 2021 – Jun 2024",
+      "location": "Gurugram",
+      "description": "",
+      "bullets": [
+        "Led a full app rewrite for the platform's first major brand campaign, transitioning from monolithic to modular, component-based architecture with a phased rollout to 100% traffic at 99.92% crash-free stability.",
+        "Redesigned tournament architecture with client-side caching and data separation, reducing API load by 70% across high-traffic flows serving 1M+ DAUs.",
+        "Transitioned the app toward an offline-first architecture by reducing main-socket dependency, enabling graceful offline behavior and faster socket reconnection.",
+        "Improved system resilience during downtime by eliminating socket reconnection spikes, preventing backend overload during high-concurrency recovery scenarios.",
+        "Monitored production using Crashlytics, New Relic, and logging frameworks enabling rapid debugging and data-driven decision making.",
+        "Built scalable rollout systems using feature flags, A/B testing, and backward-compatible flows."
+      ]
+    },
+    {
+      "role": "Android Developer",
+      "company": "Zupee",
+      "period": "Jan 2019 – Jun 2021",
+      "location": "Gurugram",
+      "description": "",
+      "bullets": [
+        "Owned and executed a full-scale transformation of a quiz app into an animation-heavy, gamified UX as the sole Android developer.",
+        "Built Kotlin and Java-based Android features with a strong focus on UI, UX, and performance. Participated in system design, monitored, and resolved production issues."
+      ]
+    },
+    {
+      "role": "Android Developer",
+      "company": "Cliffjumper Technologies Pvt. Ltd",
+      "period": "Feb 2018 – Dec 2018",
+      "location": "New Delhi",
+      "description": "Cliffjumper was an e-commerce company dedicated to crafting a unique shopping experience.",
+      "bullets": [
+        "Developed Android interfaces and e-commerce features including product listing, cart, order creation, payments, and order tracking.",
+        "Integrated REST APIs, Realm Database, Push Notifications, Deeplinks. Improved app stability through debugging and bug resolution."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Technology – Electronics",
+      "institution": "University of Delhi",
+      "location": "New Delhi, India",
+      "period": "Aug 2013 – Jul 2017"
+    }
+  ],
+  "skills": {
+    "Languages": ["Kotlin", "Java"],
+    "Android & UI": ["Jetpack Compose", "Navigation", "Pagination", "ViewModel", "WebView", "Android SDK"],
+    "Async & Data": ["Coroutines", "Flows", "Room", "DataStore"],
+    "Architecture": ["Clean Architecture", "MVVM", "MVI", "Modularization", "Hilt"],
+    "System Design": ["Offline-First Systems", "Caching (TTL)", "WebSockets", "REST APIs"],
+    "Tools & Infra": ["Git", "Gradle", "CI/CD", "Firebase", "New Relic"],
+    "Testing": ["JUnit", "Mockito", "Espresso"],
+    "Practices": ["A/B Testing", "Feature Flags", "Performance Optimization", "Cursor/Copilot"]
+  },
+  "achievements": [
+    {
+      "title": "From Seed to Unicorn",
+      "description": "Helped scale a small app into a multi-module platform serving 2M+ DAUs through architectural and reliability improvements."
+    },
+    {
+      "title": "Full-App Rewrite",
+      "description": "Led a full app rewrite adopting a new UI theme, modern architecture, SOLID principles, and complete Kotlin migration."
+    },
+    {
+      "title": "End-to-End Ownership",
+      "description": "Architected and scaled core app lifecycle systems — managing platform features and high-revenue game modules end-to-end."
+    },
+    {
+      "title": "Co-founded Brain Battle",
+      "description": "Created and sold a free-to-play multiplayer gaming platform to a European startup."
+    },
+    {
+      "title": "2× Hackathon Winner",
+      "description": "Won a bug-bounty hackathon (team of 3) and built an AI-based platform navigation tool (team of 4)."
+    }
+  ]
+}

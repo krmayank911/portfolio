@@ -1,0 +1,74 @@
+---
+layout: base
+---
+<article class="project-detail">
+  <div class="container container-narrow">
+
+    <div class="detail-back">
+      <a href="{{ '/projects/' | url }}" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Projects
+      </a>
+    </div>
+
+    <header class="detail-header">
+      {% if status == "current" %}
+        <span class="status-badge status-current">Active</span>
+      {% else %}
+        <span class="status-badge status-past">Completed</span>
+      {% endif %}
+      <h1 class="detail-title">{{ title }}</h1>
+      {% if summary %}<p class="detail-summary">{{ summary }}</p>{% endif %}
+      {% if tags %}
+      <div class="tag-list">
+        {% for tag in tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+      </div>
+      {% endif %}
+    </header>
+
+    {% if links %}
+    <div class="project-links">
+      {% if links.playstore %}
+        <a href="{{ links.playstore }}" target="_blank" rel="noopener" class="project-link-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Play Store
+        </a>
+      {% endif %}
+      {% if links.github %}
+        <a href="{{ links.github }}" target="_blank" rel="noopener" class="project-link-btn project-link-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% if images and images.length > 0 %}
+    <div class="project-gallery">
+      {% for img in images %}
+        <img src="{{ img }}" alt="{{ title }} screenshot" class="project-screenshot" loading="lazy">
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if coverImage and (not images or images.length == 0) %}
+    <div class="project-gallery">
+      <img src="{{ coverImage }}" alt="{{ title }}" class="project-screenshot" loading="lazy">
+    </div>
+    {% endif %}
+
+    <div class="project-content article-content">
+      {{ content | safe }}
+    </div>
+
+    {% if tech %}
+    <div class="detail-tech">
+      <p class="detail-tech-label">Tech Stack</p>
+      <div class="tag-list">
+        {% for t in tech %}<span class="tag tag-tech">{{ t }}</span>{% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</article>

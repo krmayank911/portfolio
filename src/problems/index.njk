@@ -1,0 +1,49 @@
+---
+layout: base
+title: "Problem Writeups"
+description: "Engineering problems I've solved, written in the STAR format — Situation, Task, Action, Result."
+---
+<section class="page-hero">
+  <div class="container">
+    <h1 class="page-title">Problem Writeups</h1>
+    <p class="page-subtitle">Real engineering challenges I've tackled — written in the <strong>STAR</strong> format: Situation, Task, Action, Result.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if collections.problems.length == 0 %}
+    <p class="empty-state">No writeups yet. Add a Markdown file to <code>src/problems/</code>.</p>
+    {% else %}
+    <div class="card-grid">
+      {% for problem in collections.problems %}
+      <a href="{{ problem.url | url }}" class="problem-card card">
+        <div class="card-body">
+          <h2 class="card-title">{{ problem.data.title }}</h2>
+          {% if problem.data.summary %}
+          <p class="card-summary">{{ problem.data.summary }}</p>
+          {% endif %}
+          {% if problem.data.metrics %}
+          <ul class="card-metrics">
+            {% for m in problem.data.metrics %}
+            <li>{{ m }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        <div class="card-footer">
+          {% if problem.data.tags %}
+          <div class="tag-list">
+            {% for tag in problem.data.tags %}<span class="tag tag-sm">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
+          {% if problem.date %}
+          <span class="card-date">{{ problem.date | dateFormat }}</span>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>

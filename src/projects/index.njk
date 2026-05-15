@@ -1,0 +1,57 @@
+---
+layout: base
+title: "Projects"
+description: "Android projects I've built and shipped."
+---
+<section class="page-hero">
+  <div class="container">
+    <h1 class="page-title">Projects</h1>
+    <p class="page-subtitle">Apps and systems I've designed, built, and shipped.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if collections.projects.length == 0 %}
+    <div class="empty-state-card">
+      <p class="empty-state-title">Projects coming soon.</p>
+      <p class="empty-state-body">Add a Markdown file to <code>src/projects/</code> using the template at <code>src/projects/_template.md</code>.</p>
+    </div>
+    {% else %}
+    <div class="projects-grid">
+      {% for project in collections.projects %}
+      <a href="{{ project.url | url }}" class="project-card card">
+        {% if project.data.coverImage %}
+        <div class="project-card-image">
+          <img src="{{ project.data.coverImage }}" alt="{{ project.data.title }}" loading="lazy">
+        </div>
+        {% else %}
+        <div class="project-card-image project-card-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        {% endif %}
+        <div class="card-body">
+          <div class="project-card-meta">
+            {% if project.data.status == "current" %}
+              <span class="status-badge status-current">Active</span>
+            {% else %}
+              <span class="status-badge status-past">Completed</span>
+            {% endif %}
+          </div>
+          <h2 class="card-title">{{ project.data.title }}</h2>
+          {% if project.data.summary %}
+          <p class="card-summary">{{ project.data.summary }}</p>
+          {% endif %}
+          {% if project.data.tech %}
+          <div class="tag-list tag-list-sm">
+            {% for t in project.data.tech | slice(0, 4) %}<span class="tag tag-sm">{{ t }}</span>{% endfor %}
+            {% if project.data.tech.length > 4 %}<span class="tag tag-sm tag-more">+{{ project.data.tech.length - 4 }}</span>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
