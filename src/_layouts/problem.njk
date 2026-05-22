@@ -35,6 +35,26 @@ syntaxHighlighting: true
       {{ content | safe }}
     </div>
 
+    {% if images and images.length > 0 %}
+    <div class="problem-gallery">
+      <p class="detail-tech-label">Screenshots</p>
+      <div class="gallery-grid">
+        {% for img in images %}
+          {% if img.src %}
+            <figure class="gallery-item" data-caption="{{ img.caption }}">
+              <img src="{{ img.src | url }}" alt="{{ img.caption or title }}" loading="lazy" class="gallery-img">
+              {% if img.caption %}<figcaption class="gallery-caption">{{ img.caption }}</figcaption>{% endif %}
+            </figure>
+          {% else %}
+            <figure class="gallery-item">
+              <img src="{{ img | url }}" alt="{{ title }}" loading="lazy" class="gallery-img">
+            </figure>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
     {% if tech %}
     <div class="detail-tech">
       <p class="detail-tech-label">Tech Used</p>

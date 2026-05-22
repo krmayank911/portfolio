@@ -9,6 +9,15 @@ metrics:
   - "Phased rollout to 100% traffic within 1 week"
   - "Launched Zupee's first official brand campaign successfully"
 tech: [MVVM, Repository Pattern, Dependency Injection, ViewModels, Coroutines, Flows, Navigation, Modules, Widgetization, Server-Driven Architecture, Kotlin]
+# Images: add, remove, or reorder entries below.
+# Simple path:   - /assets/images/filename.png
+# With caption:  - src: /assets/images/filename.png
+#                  caption: "Description shown below image"
+images:
+  - src: /assets/images/before-after-home.png
+    caption: "Home screen — before and after the rebrand"
+  - src: /assets/images/before-after-tournaments.png
+    caption: "Tournament listing — before and after"
 ---
 
 ## Situation

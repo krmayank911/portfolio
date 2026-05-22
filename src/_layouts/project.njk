@@ -46,14 +46,14 @@ layout: base
     {% if images and images.length > 0 %}
     <div class="project-gallery">
       {% for img in images %}
-        <img src="{{ img }}" alt="{{ title }} screenshot" class="project-screenshot" loading="lazy">
+        <img src="{{ img | url }}" alt="{{ title }} screenshot" class="project-screenshot" loading="lazy">
       {% endfor %}
     </div>
     {% endif %}
 
     {% if coverImage and (not images or images.length == 0) %}
     <div class="project-gallery">
-      <img src="{{ coverImage }}" alt="{{ title }}" class="project-screenshot" loading="lazy">
+      <img src="{{ coverImage | url }}" alt="{{ title }}" class="project-screenshot" loading="lazy">
     </div>
     {% endif %}
 

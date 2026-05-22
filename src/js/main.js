@@ -38,6 +38,70 @@
   }
 })();
 
+/* Image lightbox for problem galleries */
+(function () {
+  const items = Array.from(document.querySelectorAll(".gallery-item"));
+  if (!items.length) return;
+
+  // Build overlay
+  const overlay = document.createElement("div");
+  overlay.className = "lightbox-overlay";
+  overlay.innerHTML = `
+    <div class="lightbox-inner">
+      <button class="lightbox-close" aria-label="Close">&#x2715;</button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Previous">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <img class="lightbox-img" src="" alt="">
+      <button class="lightbox-nav lightbox-next" aria-label="Next">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <p class="lightbox-caption"></p>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  const lbImg     = overlay.querySelector(".lightbox-img");
+  const lbCaption = overlay.querySelector(".lightbox-caption");
+  const lbPrev    = overlay.querySelector(".lightbox-prev");
+  const lbNext    = overlay.querySelector(".lightbox-next");
+  let current     = 0;
+
+  function show(index) {
+    current = (index + items.length) % items.length;
+    const img     = items[current].querySelector(".gallery-img");
+    const caption = items[current].querySelector(".gallery-caption");
+    lbImg.src        = img.src;
+    lbImg.alt        = img.alt;
+    lbCaption.textContent = caption ? caption.textContent : "";
+    lbPrev.style.display = items.length > 1 ? "flex" : "none";
+    lbNext.style.display = items.length > 1 ? "flex" : "none";
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  items.forEach(function (item, i) {
+    item.addEventListener("click", function () { show(i); });
+  });
+
+  lbPrev.addEventListener("click", function (e) { e.stopPropagation(); show(current - 1); });
+  lbNext.addEventListener("click", function (e) { e.stopPropagation(); show(current + 1); });
+  overlay.querySelector(".lightbox-close").addEventListener("click", close);
+  overlay.addEventListener("click", function (e) { if (e.target === overlay) close(); });
+  lbImg.addEventListener("click", function (e) { e.stopPropagation(); });
+
+  document.addEventListener("keydown", function (e) {
+    if (!overlay.classList.contains("open")) return;
+    if (e.key === "Escape")      close();
+    if (e.key === "ArrowLeft")   show(current - 1);
+    if (e.key === "ArrowRight")  show(current + 1);
+  });
+})();
+
 /* STAR badge injection for problem detail pages */
 (function () {
   const content = document.querySelector(".problem-content");
