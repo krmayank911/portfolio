@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixels SDK | Mayank – Android Lead</title>
+  <meta name="description" content="Lead Android Engineer with 8+ years of experience building scalable mobile applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio/css/style.css">
+  
+</head>
+<body>
+  <header class="nav">
+  <div class="nav-inner container">
+    <a href="/portfolio/" class="nav-logo">
+      <span class="nav-logo-name">Mayank</span>
+      <span class="nav-logo-title">Android</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="/portfolio/" class="nav-link">About</a>
+      <a href="/portfolio/problems/" class="nav-link">Problems I Solved</a>
+      <a href="/portfolio/projects/" class="nav-link">Projects</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+    <article class="project-detail">
+  <div class="container container-narrow">
+
+    <div class="detail-back">
+      <a href="/portfolio/projects/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Projects
+      </a>
+    </div>
+
+    <header class="detail-header">
+      
+        <span class="status-badge status-past">Completed</span>
+      
+      <h1 class="detail-title">Pixels SDK</h1>
+      <p class="detail-summary">An Android image loading SDK built from scratch — multi-layer caching, request deduplication, lifecycle-aware rendering, and decode-time resize. Built to understand image pipelines, not to wrap an existing library.</p>
+    </header>
+
+    
+    <div class="detail-tech detail-tech-inline">
+      <p class="detail-tech-label">Tech Stack</p>
+      <div class="tag-list">
+        <span class="tag tag-tech">Kotlin</span><span class="tag tag-tech">Coroutines</span><span class="tag tag-tech">BitmapFactory</span><span class="tag tag-tech">LRU Memory Cache</span><span class="tag tag-tech">Disk Cache</span><span class="tag tag-tech">WeakHashMap</span><span class="tag tag-tech">Jetpack Compose</span>
+      </div>
+    </div>
+    
+
+    
+    <div class="project-links">
+      
+      
+    </div>
+    
+
+    
+
+    <div class="project-content article-content">
+      <p>A reusable Android image loading engine built from scratch to understand image pipelines, caching layers, lifecycle management, and SDK design. The goal was to build the infrastructure — not wrap Coil or Glide.</p>
+<h2>Architecture</h2>
+<pre><code>Public API
+    ↓ ImageRequestBuilder
+    ↓ ImageRequest
+    ↓ ImageEngine
+    ↓ MemoryCache (Bitmap)
+    ↓ DiskCache (ByteArray)
+    ↓ RequestCoordinator
+    ↓ Fetcher (ByteArray)
+    ↓ Decoder (Bitmap)
+</code></pre>
+<p>Adapters sit at the top — <code>ImageLoader</code> for <code>ImageView</code>, <code>PixelImage</code> for Compose. Both consume the same engine.</p>
+<h2>Key Design Decisions</h2>
+<h3>Memory vs. Disk Layer Split</h3>
+<p>Memory cache stores decoded <code>Bitmap</code> objects. Disk cache stores raw <code>ByteArray</code>. This separation means the same cached bytes can produce different output sizes at decode time — a larger or smaller <code>Bitmap</code> depending on the target view — without re-downloading. The tradeoff is an extra decode step on memory miss, which is cheaper than a network round-trip.</p>
+<h3>Request Deduplication via RequestCoordinator</h3>
+<p>When the same URL is requested concurrently — common in <code>RecyclerView</code> — a naive implementation fires multiple network requests. <code>RequestCoordinator</code> tracks in-flight fetches and attaches new consumers to an existing coroutine <code>Job</code> instead of launching a duplicate fetch. Single download, multiple render targets.</p>
+<h3>Lifecycle-Aware Rendering with RequestTracker</h3>
+<p><code>RecyclerView</code> reuses views aggressively. Without tracking, a slow network response for cell A can render into cell B after it's been recycled. <code>RequestTracker</code> maps each <code>ImageView</code> to its active <code>Job</code> and <code>RequestId</code>. When a new request arrives for a view that already has an in-flight job, the old job is cancelled before starting the new one — preventing stale renders entirely.</p>
+<h3>Decode-Time Resize</h3>
+<p>Loading a full-resolution image into memory for a 48dp thumbnail wastes significant memory. The decode flow reads bounds first (no allocation), calculates the appropriate <code>inSampleSize</code>, then decodes at the reduced size:</p>
+<pre><code>ByteArray
+    ↓ Bounds decode (BitmapFactory.Options.inJustDecodeBounds)
+    ↓ Sample size calculation
+    ↓ Bitmap decode at sampled size
+</code></pre>
+<h3>Cache Key Evolution</h3>
+<p>The initial cache key was just the URL. Once resize support was added, the same URL at different target sizes needed separate cache entries. The key became <code>hash(URL + width + height)</code>, so different output sizes cache independently without collisions.</p>
+<h3>Dispatcher Separation</h3>
+<p>Fetch runs on <code>IO</code>, decode on <code>Default</code>, render on <code>Main</code>. No central dispatcher object orchestrates this — each layer owns its dispatcher. This keeps responsibilities separated and avoids a coordination bottleneck.</p>
+<h3>Disk Cache Resilience</h3>
+<p>Android's <code>cacheDir</code> is aggressively purged under storage pressure. Rather than fighting this, the disk layer is treated as an optimization — not the source of truth. A miss falls back to the network gracefully, and the cache self-heals on the next successful fetch.</p>
+<h2>Challenges</h2>
+<p><strong>Cache invalidation.</strong> Solved by making the cache key a function of the request, not just the URL — resize dimensions and other request metadata are folded into the key hash.</p>
+<p><strong>Duplicate rendering.</strong> Solved using request identity: each request carries a unique ID that <code>RequestTracker</code> uses to determine whether a response should still be rendered into a given view.</p>
+<p><strong>Race conditions.</strong> Lifecycle-aware tracking with <code>WeakHashMap</code> ensures stale references to recycled views don't cause incorrect renders or memory leaks.</p>
+<p><strong>Disk eviction.</strong> Treated as expected behavior. The cache layer is designed to handle misses without any special recovery path.</p>
+<h2>What I Learned</h2>
+<p>Building Pixels surfaced concrete experience with multi-layer cache design, decode optimization with <code>BitmapFactory</code>, coroutine lifecycle coordination, and the subtleties of <code>RecyclerView</code> view recycling. The request deduplication problem was the most interesting to solve — getting the <code>RequestCoordinator</code> right required understanding both coroutine scoping and the race between view binding and network completion.</p>
+<h2>Roadmap</h2>
+<p>Transformations, bitmap pooling, progressive loading, and a metrics layer are planned for future iterations.</p>
+
+    </div>
+
+    
+    <div class="detail-tech">
+      <div class="tag-list">
+        <span class="tag">android</span><span class="tag">kotlin</span><span class="tag">sdk</span><span class="tag">caching</span><span class="tag">image-loading</span>
+      </div>
+    </div>
+    
+
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2025 Mayank. Built with Eleventy.</p>
+    <div class="footer-links">
+      <a href="https://github.com/krmayank911" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+      <a href="https://www.linkedin.com/in/mayank-874b43110/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+      <a href="mailto:krmayank911@gmail.com" class="footer-link">Email</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/portfolio/js/main.js"></script>
+</body>
+</html>

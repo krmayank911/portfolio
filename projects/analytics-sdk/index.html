@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics SDK | Mayank – Android Lead</title>
+  <meta name="description" content="Lead Android Engineer with 8+ years of experience building scalable mobile applications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/portfolio/css/style.css">
+  
+</head>
+<body>
+  <header class="nav">
+  <div class="nav-inner container">
+    <a href="/portfolio/" class="nav-logo">
+      <span class="nav-logo-name">Mayank</span>
+      <span class="nav-logo-title">Android</span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      <a href="/portfolio/" class="nav-link">About</a>
+      <a href="/portfolio/problems/" class="nav-link">Problems I Solved</a>
+      <a href="/portfolio/projects/" class="nav-link">Projects</a>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main id="main">
+    <article class="project-detail">
+  <div class="container container-narrow">
+
+    <div class="detail-back">
+      <a href="/portfolio/projects/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        All Projects
+      </a>
+    </div>
+
+    <header class="detail-header">
+      
+        <span class="status-badge status-past">Completed</span>
+      
+      <h1 class="detail-title">Analytics SDK</h1>
+      <p class="detail-summary">An Android Analytics SDK built from scratch — offline-first event tracking with batching, persistence, retry logic, and WorkManager scheduling. Built to understand SDK architecture, not to wrap an existing platform.</p>
+    </header>
+
+    
+    <div class="detail-tech detail-tech-inline">
+      <p class="detail-tech-label">Tech Stack</p>
+      <div class="tag-list">
+        <span class="tag tag-tech">Kotlin</span><span class="tag tag-tech">Coroutines</span><span class="tag tag-tech">Mutex</span><span class="tag tag-tech">Room</span><span class="tag tag-tech">WorkManager</span><span class="tag tag-tech">Retrofit</span><span class="tag tag-tech">Dependency Injection</span>
+      </div>
+    </div>
+    
+
+    
+    <div class="project-links">
+      
+      
+    </div>
+    
+
+    
+
+    <div class="project-content article-content">
+      <p>An Android Analytics SDK capable of collecting analytics events, batching them, persisting them locally, and reliably uploading them to a backend with retry and recovery mechanisms. The goal was not to build a wrapper over an analytics platform but to understand SDK architecture, reliability guarantees, concurrency, lifecycle management, and offline-first systems.</p>
+<h2>Architecture</h2>
+<pre><code>Analytics
+    ↓ AnalyticsManager
+    ↓ EventStore
+    ↓ EventUploader
+    ↓ RetryPolicy
+    ↓ Scheduler
+</code></pre>
+<p>Storage is backed by two implementations of an <code>EventStore</code> interface — <code>InMemoryEventStore</code> for testing and <code>RoomEventStore</code> for production — making the persistence layer swappable without touching <code>AnalyticsManager</code>.</p>
+<h2>Key Design Decisions</h2>
+<h3>EventStore Abstraction</h3>
+<p>Introducing the <code>EventStore</code> interface allowed a clean migration from memory to Room storage without modifying <code>AnalyticsManager</code>. Storage implementation became fully replaceable.</p>
+<p><code>AnalyticsEvent</code> is stored directly rather than wrapping it in a <code>StoredEvent</code> — this avoids leaking storage concerns upward. The manager stays unchanged regardless of which store is active.</p>
+<h3>Flush Serialization with Mutex</h3>
+<p>Multiple callers — <code>track()</code>, periodic flush, retry flush, and the background <code>AnalyticsWorker</code> — could all trigger uploads simultaneously. A single flush gate backed by a <code>Mutex</code> serializes all flush operations:</p>
+<ul>
+<li>Events are never dropped</li>
+<li>Events may be uploaded more than once (at-least-once delivery)</li>
+<li>No silent race conditions</li>
+</ul>
+<h3>Retry Policy</h3>
+<p><code>RetryPolicy</code> is a separate abstraction from upload execution, implemented as <code>FailureRetryPolicy</code> with configurable max retries and exponential backoff. This separates the <em>decision to retry</em> from <em>how to upload</em>, making both independently testable.</p>
+<p>A flush blocking window prevents <code>track()</code> and <code>retry()</code> from triggering parallel upload storms — a common cause of battery drain in naive retry implementations.</p>
+<h3>WorkManager Integration</h3>
+<p>When the application process dies, in-flight events that haven't been uploaded would be lost without a persistence boundary. <code>AnalyticsWorker</code> acts only as a wake-up signal — it calls <code>flushAsync()</code> and hands control back to the SDK. Retry logic stays owned by the SDK, not the worker.</p>
+<p>Worker constraints:</p>
+<ul>
+<li>Network connected</li>
+<li>Battery not low</li>
+</ul>
+<h2>Challenges</h2>
+<p><strong>Thread safety.</strong> A raw <code>MutableList</code> for in-memory storage is unsafe under concurrent access. Solved by routing all mutations through the <code>EventStore</code> abstraction with serialized flushes.</p>
+<p><strong>Duplicate uploads.</strong> Removing events <em>before</em> a successful upload caused loss on failure. Corrected to: upload → confirm success → remove.</p>
+<p><strong>Retry storms.</strong> Naive retries on failure drained battery. Exponential backoff with a configurable ceiling solved this.</p>
+<p><strong>Process death.</strong> Room handles persistence across restarts; WorkManager handles scheduled wake-up when the process is gone.</p>
+<h2>What I Learned</h2>
+<p>Building this SDK surfaced concrete experience with offline-first system design, at-least-once delivery semantics, concurrency control with coroutines and <code>Mutex</code>, Work scheduling constraints, and dependency inversion through interface-based abstraction. The most interesting problem was designing the flush gate — ensuring reliability without introducing livelock or event loss required getting the ordering right: upload, confirm, then delete.</p>
+
+    </div>
+
+    
+    <div class="detail-tech">
+      <div class="tag-list">
+        <span class="tag">android</span><span class="tag">kotlin</span><span class="tag">sdk</span><span class="tag">architecture</span><span class="tag">offline-first</span>
+      </div>
+    </div>
+    
+
+  </div>
+</article>
+
+  </main>
+  <footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">© 2025 Mayank. Built with Eleventy.</p>
+    <div class="footer-links">
+      <a href="https://github.com/krmayank911" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+      <a href="https://www.linkedin.com/in/mayank-874b43110/" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+      <a href="mailto:krmayank911@gmail.com" class="footer-link">Email</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="/portfolio/js/main.js"></script>
+</body>
+</html>
