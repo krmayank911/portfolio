@@ -15,7 +15,7 @@ module.exports = function (eleventyConfig) {
     return api.getFilteredByGlob("src/projects/*.md").sort((a, b) => {
       if (a.data.status === "current" && b.data.status !== "current") return -1;
       if (b.data.status === "current" && a.data.status !== "current") return 1;
-      return b.date - a.date;
+      return a.date - b.date;
     });
   });
 

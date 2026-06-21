@@ -23,7 +23,7 @@ description: "Android projects I've built and shipped."
       <a href="{{ project.url | url }}" class="project-card card">
         {% if project.data.coverImage %}
         <div class="project-card-image">
-          <img src="{{ project.data.coverImage }}" alt="{{ project.data.title }}" loading="lazy">
+          <img src="{{ project.data.coverImage | url }}" alt="{{ project.data.title }}" loading="lazy">
         </div>
         {% else %}
         <div class="project-card-image project-card-placeholder">

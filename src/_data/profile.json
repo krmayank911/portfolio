@@ -1,7 +1,7 @@
 {
   "name": "Mayank",
   "title": "Technical Lead – Android",
-  "summary": "Lead Android Engineer with 8+ years of experience building and scaling high-performance Android applications. Expertise in clean architecture, offline-first design, Kotlin-based development, and delivering scalable, resilient mobile experiences with a strong focus on code quality, performance, and user impact.",
+  "summary": "Lead Android Engineer (8+ yrs) specializing in scalable mobile architecture, reliability engineering, and offline-first systems. Led high-impact initiatives supporting products at 2M+ DAU with 99.9% stability.",
   "email": "krmayank911@gmail.com",
   "phone": "+91 8471083566",
   "location": "New Delhi, India",
@@ -9,16 +9,27 @@
   "github": "https://github.com/krmayank911",
   "experience": [
     {
+      "role": "Professional Development",
+      "company": "",
+      "period": "Mar 2026 – Present",
+      "location": "",
+      "description": "",
+      "bullets": [
+        "Focused on advancing Android architecture, system design, and platform engineering expertise while exploring Senior / Lead Android opportunities."
+      ]
+    },
+    {
       "role": "Technical Lead",
       "company": "Zupee",
       "period": "Jul 2024 – Feb 2026",
       "location": "Gurugram",
       "description": "Zupee is a leading casual real money gaming company focused on fun and interactive gaming experiences.",
       "bullets": [
-        "Led parallel Android initiatives, managing a dedicated team of 3 engineers and owning delivery of high-revenue game modules and core platform features end-to-end.",
-        "Served as the primary reviewer for all major pull requests due to deep app-wide context, helping maintain architectural consistency, code quality, and engineering standards across teams.",
-        "Collaborated with product, design, and backend teams to define implementation strategy, delivery sequencing, and rollout plans.",
-        "Reduced 3TTO baseline from ~1.67% to ~1.34% among paid games by removing gameplay startup dependency on main socket events."
+        "Led parallel Android initiatives, managing a team of 3 engineers and owning delivery of high-revenue game modules and core platform features end-to-end.",
+        "Collaborated with product, design, and backend teams to drive conversion, improve discoverability through A/B testing, and define rollout strategies.",
+        "Served as the primary reviewer for all major pull requests due to app-wide context, helping maintain architectural consistency and code quality standards across teams.",
+        "Improved gameplay reliability by eliminating critical client-side dependencies, reducing turn timeout failures from ~1.67% to ~1.34% among paid games and minimizing revenue loss from disrupted game sessions.",
+        "Built scalable rollout systems using feature flags, A/B tests, and backward-compatible flows."
       ]
     },
     {
@@ -28,12 +39,13 @@
       "location": "Gurugram",
       "description": "",
       "bullets": [
-        "Led a full app rewrite for the platform's first major brand campaign, transitioning from monolithic to modular, component-based architecture with a phased rollout to 100% traffic at 99.92% crash-free stability.",
-        "Redesigned tournament architecture with client-side caching and data separation, reducing API load by 70% across high-traffic flows serving 1M+ DAUs.",
-        "Transitioned the app toward an offline-first architecture by reducing main-socket dependency, enabling graceful offline behavior and faster socket reconnection.",
-        "Improved system resilience during downtime by eliminating socket reconnection spikes, preventing backend overload during high-concurrency recovery scenarios.",
-        "Monitored production using Crashlytics, New Relic, and logging frameworks enabling rapid debugging and data-driven decision making.",
-        "Built scalable rollout systems using feature flags, A/B testing, and backward-compatible flows."
+        "Led a full app rewrite for the platform's first major brand campaign, adopting a modular, component-based architecture, written in Kotlin using Coroutines and Flow, delivering a phased app release to 100% traffic with 99.92% crash-free stability.",
+        "Redesigned tournament architecture with client-side caching and data separation, reducing API load by 70% across high-traffic tournament flows serving 1M+ DAUs.",
+        "Redesigned client architecture for offline-first support, eliminating critical WebSocket dependency and enabling uninterrupted user flows during network disruptions.",
+        "Improved system resilience during downtime by eliminating socket reconnection spikes, preventing backend overload during high concurrency recovery scenarios.",
+        "Built a cache-first authentication and configuration system with TTL-based invalidation, reducing redundant backend calls and improving app launch and interaction latency.",
+        "Built an application health engine to monitor gameplay reliability, track user journey failures, and surface operational alerts.",
+        "Developed internal automation and platform tooling to reconstruct gameplay state from distributed logs and enable deterministic replay of production game sessions without manual intervention."
       ]
     },
     {
@@ -44,18 +56,18 @@
       "description": "",
       "bullets": [
         "Owned and executed a full-scale transformation of a quiz app into an animation-heavy, gamified UX as the sole Android developer.",
-        "Built Kotlin and Java-based Android features with a strong focus on UI, UX, and performance. Participated in system design, monitored, and resolved production issues."
+        "Built Kotlin and Java-based Android features with a strong focus on UI, UX, and performance, participated in system design, monitored, and resolved production issues."
       ]
     },
     {
       "role": "Android Developer",
       "company": "Cliffjumper Technologies Pvt. Ltd",
       "period": "Feb 2018 – Dec 2018",
-      "location": "New Delhi",
-      "description": "Cliffjumper was an e-commerce company dedicated to crafting a unique shopping experience.",
+      "location": "Gurugram",
+      "description": "Cliffjumper was an e-commerce company, crafting a unique shopping experience.",
       "bullets": [
-        "Developed Android interfaces and e-commerce features including product listing, cart, order creation, payments, and order tracking.",
-        "Integrated REST APIs, Realm Database, Push Notifications, Deeplinks. Improved app stability through debugging and bug resolution."
+        "Developed Android interfaces and e-commerce features like product listing, details, cart, order creation, payments page, order tracking.",
+        "Integrated REST APIs, Realm DB, push notifications, and deep links while improving app stability through debugging and performance optimization."
       ]
     }
   ],
@@ -70,33 +82,36 @@
   "skills": {
     "Languages": ["Kotlin", "Java"],
     "Android & UI": ["Jetpack Compose", "Navigation", "Pagination", "ViewModel", "WebView", "Android SDK"],
+    "Architecture": ["Clean Architecture", "MVVM", "MVI", "Modularization", "Dependency Injection (Hilt)"],
     "Async & Data": ["Coroutines", "Flows", "Room", "DataStore"],
-    "Architecture": ["Clean Architecture", "MVVM", "MVI", "Modularization", "Hilt"],
-    "System Design": ["Offline-First Systems", "Caching (TTL)", "WebSockets", "REST APIs"],
-    "Tools & Infra": ["Git", "Gradle", "CI/CD", "Firebase", "New Relic"],
-    "Testing": ["JUnit", "Mockito", "Espresso"],
-    "Practices": ["A/B Testing", "Feature Flags", "Performance Optimization", "Cursor/Copilot"]
+    "System Design": ["Offline-First Systems", "Caching Strategies (TTL)", "WebSockets", "REST APIs"],
+    "Unit/UI Testing": ["JUnit", "Mockito", "Espresso", "Test Automation"],
+    "Tools & Infra": ["Git", "Gradle", "CI/CD", "Firebase", "New Relic", "AI-Assisted Development (Cursor, Copilot)"]
   },
   "achievements": [
     {
-      "title": "From Seed to Unicorn",
+      "title": "Scaled Platform to 2M+ DAUs",
       "description": "Helped scale a small app into a multi-module platform serving 2M+ DAUs through architectural and reliability improvements."
     },
     {
-      "title": "Full-App Rewrite",
-      "description": "Led a full app rewrite adopting a new UI theme, modern architecture, SOLID principles, and complete Kotlin migration."
+      "title": "Platform Rewrite & Modernization",
+      "description": "Led full-app rewrite adopting new UI theme, modern architecture, SOLID principles, and complete Kotlin migration."
     },
     {
-      "title": "End-to-End Ownership",
+      "title": "Core Platform Ownership",
       "description": "Architected and scaled core app lifecycle systems — managing platform features and high-revenue game modules end-to-end."
     },
     {
       "title": "Co-founded Brain Battle",
-      "description": "Created and sold a free-to-play multiplayer gaming platform to a European startup."
+      "description": "Created and sold a free-to-play multiplayer gaming platform featuring brain-teasers and puzzles to a European startup."
+    },
+    {
+      "title": "Co-founded Instafeed+",
+      "description": "Leveraged technical expertise and passion for innovation to create a product that stood out in a competitive news and magazine market."
     },
     {
       "title": "2× Hackathon Winner",
-      "description": "Won a bug-bounty hackathon (team of 3) and built an AI-based platform navigation tool (team of 4)."
+      "description": "Won a bug-bounty hackathon (team of 3) and crafted an AI-based solution to help users navigate a platform with ease (team of 4)."
     }
   ]
 }
