@@ -3,6 +3,7 @@ layout: problem
 title: "Tournament Listing Revamp: 70% API Load Reduction"
 date: 2023-09-01
 summary: "Redesigned tournament listing architecture with client-side caching and data separation, reducing API load by 70% across high-traffic tournament flows serving 1M+ DAUs."
+company: zupee
 tags: [performance, caching, architecture, android, system-design]
 metrics:
   - "70% reduction in Tournament Listing API RPM"

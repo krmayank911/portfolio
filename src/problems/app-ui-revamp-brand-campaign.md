@@ -3,6 +3,7 @@ layout: problem
 title: "App UI Revamp – First Brand Campaign"
 date: 2022-06-01
 summary: "Led a full app rewrite for the platform's first brand campaign, transitioning from monolithic to component-based architecture with a phased rollout to 100% traffic."
+company: zupee
 tags: [architecture, kotlin, mvvm, android, dependency injection]
 metrics:
   - "99.92% crash-free rate on launch"

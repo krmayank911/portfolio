@@ -3,6 +3,7 @@ layout: problem
 title: "Reducing 3TTO by Removing Gameplay's Main Socket Dependency"
 date: 2024-09-01
 summary: "Removed the gameplay screen's dependency on main socket events by scheduling client-side simulated events, then diagnosed an unexpected 3TTO regression caused by device clock drift at scale."
+company: zupee
 tags: [performance, websockets, android, debugging]
 metrics:
   - "Reduced existing 3TTO baseline from approximately 1.67% to approximately 1.34% among paid games after the clock sync fix"

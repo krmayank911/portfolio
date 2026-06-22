@@ -12,38 +12,128 @@ description: "Engineering problems I've solved, written in the STAR format — S
 
 <section class="section">
   <div class="container">
-    {% if collections.problems.length == 0 %}
-    <p class="empty-state">No writeups yet. Add a Markdown file to <code>src/problems/</code>.</p>
-    {% else %}
-    <div class="card-grid">
-      {% for problem in collections.problems %}
-      <a href="{{ problem.url | url }}" class="problem-card card">
-        <div class="card-body">
-          <h2 class="card-title">{{ problem.data.title }}</h2>
-          {% if problem.data.summary %}
-          <p class="card-summary">{{ problem.data.summary }}</p>
-          {% endif %}
-          {% if problem.data.metrics %}
-          <ul class="card-metrics">
-            {% for m in problem.data.metrics %}
-            <li>{{ m }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </div>
-        <div class="card-footer">
-          {% if problem.data.tags %}
-          <div class="tag-list">
-            {% for tag in problem.data.tags %}<span class="tag tag-sm">{{ tag }}</span>{% endfor %}
+
+    {# ── Zupee Section ── #}
+    <div class="company-section">
+      <div class="company-section-header">
+        <h2 class="company-section-title">Zupee</h2>
+        <p class="company-section-subtitle">Real-money gaming platform · 2M+ DAUs · Android</p>
+      </div>
+
+      {# App Showcase Filmstrip #}
+      <div class="project-carousel" data-carousel>
+        <div class="carousel-track">
+
+          <div class="carousel-slide carousel-slide-video" data-video="https://drive.google.com/file/d/1iMw96F36ApMOKepIzGcR9pSPw_zuURJI/preview" style="aspect-ratio: 9/16;">
+            <div class="carousel-video-thumb">
+              <img src="{{ '/assets/images/thumbnail_app_inerface.png' | url }}" alt="App Interface" class="carousel-video-thumbnail-img">
+              <div class="carousel-play-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
           </div>
-          {% endif %}
-          {% if problem.date %}
-          <span class="card-date">{{ problem.date | dateFormat }}</span>
-          {% endif %}
+
+          <div class="carousel-slide carousel-slide-video" data-video="https://drive.google.com/file/d/1amD3SxRXwp5WrQGCf6y6xTvrxqkl0loE/preview" style="aspect-ratio: 9/16;">
+            <div class="carousel-video-thumb">
+              <img src="{{ '/assets/images/thumbnail_gameplay.png' | url }}" alt="Ludo Gameplay" class="carousel-video-thumbnail-img">
+              <div class="carousel-play-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide carousel-slide-img">
+            <img src="{{ '/assets/images/home_screen.avif' | url }}" alt="Zupee Home Screen" loading="lazy" class="carousel-img" data-caption="Home Screen">
+          </div>
+
+          <div class="carousel-slide carousel-slide-img">
+            <img src="{{ '/assets/images/tournament_lisitng_screen.avif' | url }}" alt="Tournament Listing Screen" loading="lazy" class="carousel-img" data-caption="Tournament Listing">
+          </div>
+
         </div>
-      </a>
-      {% endfor %}
+        <button class="carousel-btn carousel-prev" aria-label="Previous" hidden>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" aria-label="Next">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      {# Problem Cards #}
+      <div class="card-grid">
+        {% for problem in collections.problems %}
+        {% if problem.data.company == "zupee" %}
+        <a href="{{ problem.url | url }}" class="problem-card card">
+          <div class="card-body">
+            <h2 class="card-title">{{ problem.data.title }}</h2>
+            {% if problem.data.summary %}
+            <p class="card-summary">{{ problem.data.summary }}</p>
+            {% endif %}
+            {% if problem.data.metrics %}
+            <ul class="card-metrics">
+              {% for m in problem.data.metrics %}
+              <li>{{ m }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="card-footer">
+            {% if problem.data.tags %}
+            <div class="tag-list">
+              {% for tag in problem.data.tags %}<span class="tag tag-sm">{{ tag }}</span>{% endfor %}
+            </div>
+            {% endif %}
+            {% if problem.date %}
+            <span class="card-date">{{ problem.date | dateFormat }}</span>
+            {% endif %}
+          </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    {# ── Ungrouped problems (no company tag) ── #}
+    {% set hasOthers = false %}
+    {% for problem in collections.problems %}
+      {% if not problem.data.company %}{% set hasOthers = true %}{% endif %}
+    {% endfor %}
+
+    {% if hasOthers %}
+    <div class="company-section">
+      <div class="card-grid">
+        {% for problem in collections.problems %}
+        {% if not problem.data.company %}
+        <a href="{{ problem.url | url }}" class="problem-card card">
+          <div class="card-body">
+            <h2 class="card-title">{{ problem.data.title }}</h2>
+            {% if problem.data.summary %}
+            <p class="card-summary">{{ problem.data.summary }}</p>
+            {% endif %}
+            {% if problem.data.metrics %}
+            <ul class="card-metrics">
+              {% for m in problem.data.metrics %}
+              <li>{{ m }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          <div class="card-footer">
+            {% if problem.data.tags %}
+            <div class="tag-list">
+              {% for tag in problem.data.tags %}<span class="tag tag-sm">{{ tag }}</span>{% endfor %}
+            </div>
+            {% endif %}
+            {% if problem.date %}
+            <span class="card-date">{{ problem.date | dateFormat }}</span>
+            {% endif %}
+          </div>
+        </a>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
     {% endif %}
+
   </div>
 </section>

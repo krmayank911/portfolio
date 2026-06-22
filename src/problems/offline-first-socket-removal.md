@@ -3,6 +3,7 @@ layout: problem
 title: "Offline-First App: Removing the Main Socket Dependency"
 date: 2023-03-01
 summary: "Transitioned the app to an offline-first architecture by safely removing the critical dependency on the main socket — enabling graceful offline behavior and eliminating a major scalability bottleneck."
+company: zupee
 tags: [offline-first, websockets, architecture, performance]
 metrics:
   - "Eliminated major scalability bottleneck during system downtime recovery"
