@@ -16,10 +16,11 @@
       "description": "",
       "bullets": [
         "Focused on advancing Android architecture, system design, and platform engineering expertise while exploring Senior / Lead Android opportunities.",
-        "Designed and built five self-directed Android projects from scratch to deepen expertise in architecture, offline-first systems, and AI-assisted engineering — spanning a Server-Driven UI framework, a food-delivery app, a multiplayer game, and two infrastructure SDKs."
+        "Designed and built six self-directed Android projects from scratch to deepen expertise in architecture, offline-first systems, and AI-assisted engineering — spanning a Server-Driven UI framework, a real-time state-management app, a food-delivery app, a multiplayer game, and two infrastructure SDKs."
       ],
       "projects": [
         { "title": "CarBaazar — Server-Driven UI Framework", "url": "/projects/carbaazar/" },
+        { "title": "CryptoPulse — Real-Time Portfolio Tracker", "url": "/projects/cryptopulse/" },
         { "title": "MealsOnWheels — Food Delivery App", "url": "/projects/mealsonwheels/" },
         { "title": "BattleShipGo — Multiplayer Game", "url": "/projects/battleshipgo/" },
         { "title": "Analytics SDK", "url": "/projects/analytics-sdk/" },

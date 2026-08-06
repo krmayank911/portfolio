@@ -1164,6 +1164,16 @@ code, kbd {
   transform: scale(1.08);
 }
 
+.carousel-video-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  padding: 0 1rem;
+}
+
 .carousel-caption { display: none; }
 
 /* Arrows — high visibility */

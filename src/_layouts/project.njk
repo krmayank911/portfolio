@@ -47,7 +47,7 @@ layout: base
     </div>
     {% endif %}
 
-    {% if video or (images and images.length > 0) or coverImage %}
+    {% if video or (videos and videos.length > 0) or (images and images.length > 0) or coverImage %}
     <div class="project-carousel" data-carousel>
       <div class="carousel-track">
 
@@ -65,6 +65,25 @@ layout: base
             </div>
           </div>
         </div>
+        {% endif %}
+
+        {# Multiple video slides — an array of {url, thumbnail, aspect, caption} #}
+        {% if videos and videos.length > 0 %}
+          {% for v in videos %}
+          {% set videoEmbed = v.url | replace('/view?usp=drive_link', '/preview') | replace('/view?usp=sharing', '/preview') | replace('/view', '/preview') %}
+          {% set vAspect = v.aspect or "9/16" %}
+          <div class="carousel-slide carousel-slide-video" data-video="{{ videoEmbed }}" style="aspect-ratio: {{ vAspect }};">
+            <div class="carousel-video-thumb">
+              {% if v.thumbnail %}
+              <img src="{{ v.thumbnail | url }}" alt="{{ v.caption or title }} video thumbnail" class="carousel-video-thumbnail-img">
+              {% endif %}
+              <div class="carousel-play-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              </div>
+              {% if v.caption %}<p class="carousel-video-label">{{ v.caption }}</p>{% endif %}
+            </div>
+          </div>
+          {% endfor %}
         {% endif %}
 
         {# Screenshot slides — portrait 9:16 #}
