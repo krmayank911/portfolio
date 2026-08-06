@@ -15,6 +15,10 @@ title: "About"
         <div class="hero-links">
           <a href="{{ '/problems/' | url }}" class="btn btn-primary">Problem Writeups</a>
           <a href="{{ '/projects/' | url }}" class="btn btn-secondary">Projects</a>
+          <a href="{{ '/projects/carbaazar/' | url }}" class="btn btn-ai">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2z"/><path d="M19 14l.9 2.6L22.5 17.5l-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9L19 14z"/></svg>
+            AI-Assisted Project
+          </a>
         </div>
         <div class="hero-contact">
           <a href="mailto:{{ profile.email }}" class="contact-chip">
@@ -76,6 +80,16 @@ title: "About"
             <li>{{ b }}</li>
             {% endfor %}
           </ul>
+          {% if exp.projects %}
+          <div class="timeline-projects">
+            {% for p in exp.projects %}
+            <a href="{{ p.url | url }}" class="timeline-project-link">
+              {{ p.title }}
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+            {% endfor %}
+          </div>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
